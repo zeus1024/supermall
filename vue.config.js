@@ -1,6 +1,7 @@
 module.exports = {
-  publicPath:process.env.NODE_ENV === "production" ? "/supermall1" : "/",
-  
+  publicPath: process.env.NODE_ENV === 'production'
+  ? '/supermall1/'
+  : '/',
   configureWebpack: {
     resolve: {
       alias: {
