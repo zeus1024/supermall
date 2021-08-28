@@ -40,9 +40,9 @@ export default {
        disableTouch:false,
        disableMouse:false,
     })
-
+    
     // 2、监听滚动的位置
-    if(this.probeType === 2 || this.probeType === 3) {
+    if(this.probeType ==1 || this.probeType === 2 || this.probeType === 3) {
       this.scroll.on('scroll',(position) => {
         this.$emit('scrollPosition', position);
         // console.log(position);
@@ -67,7 +67,10 @@ export default {
     }, 
     refresh(){
       this.scroll.refresh();
-    }
+    }, 
+    getScrollY(){
+      return this.scroll ? this.scroll.y : 0
+    },
   }
 
 }
