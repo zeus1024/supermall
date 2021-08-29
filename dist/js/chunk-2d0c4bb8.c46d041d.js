@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c4bb8"],{"3ba4":function(n,t,e){"use strict";e.r(t);var i=function(){var n=this,t=n.$createElement,e=n._self._c||t;return e("div",[n._v(" 详情页有待开发 "),e("p",[n._v("商品ID："+n._s(n.iid))])])},a=[],u={name:"Details",data:function(){return{iid:null}},created:function(){this.iid=this.$route.params},methods:{}},s=u,c=e("2877"),r=Object(c["a"])(s,i,a,!1,null,null,null);t["default"]=r.exports}}]);
-//# sourceMappingURL=chunk-2d0c4bb8.c46d041d.js.map
