@@ -49,14 +49,14 @@ import GoodsList from 'components/content/goodslist/GoodsList.vue'
 import BackTop from 'components/content/backTop/BackTop.vue'
 
 import {getHomeMultidata,getHomeGoods} from 'network/home'
-import {debounce} from 'common/utils.js'
+import {itemListenerMixin} from 'common/mixins.js'
 
 
 
 
 export default {
   name: "home",
-  components:{HomeSwiper,HomeRecommendView,FeatureView,NavBar,Scroll,TabControl,GoodsList, Scroll,BackTop, BackTop},
+  components:{HomeSwiper,HomeRecommendView,FeatureView,NavBar,Scroll,TabControl,GoodsList, Scroll,BackTop, },
   data(){
     return {
       banners:[],
@@ -73,6 +73,7 @@ export default {
       scrollY:0,
     }
   },
+  mixins:[itemListenerMixin],
   created(){
     this.getHomeMultidata();
     this.getHomeGoods('pop');
@@ -83,16 +84,13 @@ export default {
 
   activated () {
     this.$refs.scroll.scrollTo(0,this.scrollY,0);
-    this.$refs.scroll.refresh();
+    
   },
   deactivated () {
     this.scrollY =this.$refs.scroll.getScrollY();
   },
   mounted(){
-    const refresh = debounce(this.$refs.scroll.refresh,50)
-    this.$bus.$on('GoodsImageLoad',() => {
-      refresh();
-    })
+    
   },
   computed:{
     showGoods(){
@@ -113,7 +111,7 @@ export default {
           this.currentType = 'sell';
           break;
       };
-       this.$refs.scroll.scrollTo(0,-this.tabOffsetTop,0);
+      this.$refs.scroll.scrollTo(0,-this.tabOffsetTop,0);
       this.$refs.tabcontrol1.currentIndex = index;
       this.$refs.tabcontrol2.currentIndex = index;
      

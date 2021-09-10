@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="showTabBar">
      <tab-bar>
       <tab-bar-item path='/home'>
         <img slot="item-icon" src="~assets/img/tabbar/home.svg" alt="wffff">
@@ -35,6 +35,20 @@ export default {
   components:{
     TabBar,
     TabBarItem,
+
+  },
+  data() {
+    return{
+      
+    }
+  },
+  computed: {
+    showTabBar: function(){
+     if(this.$route.path.indexOf('/detail') ==-1)
+      {return true}
+      else
+      {return false}
+    }
   }
 }
 </script>
