@@ -9,15 +9,15 @@ export const itemListenerMixin = {
   },
   mounted(){
     const refresh = debounce(this.$refs.scroll.refresh,100)
-    this.$bus.$on('GoodsImageLoad',() => {
+    this.$bus.$on('ImageLoad',() => {
       refresh();
    })
   },
  methods: {
-   refreshImg(){
-    const refresh = debounce(this.$refs.scroll.refresh,100)
-    refresh();
+  //  refreshImg(){
+  //   const refresh = debounce(this.$refs.scroll.refresh,100)
+  //   refresh();
 
-  }
+  // }
 }
 }

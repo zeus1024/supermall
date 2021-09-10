@@ -8,7 +8,7 @@
     <details-swiper :top-images="topImages"/>
     <details-base-info :goods="goods"/>
     <details-shop-info :shop="shop"/>
-    <details-goods-info :detail-info="detailInfo" @imageLoad="refreshImg" />
+    <details-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
     <details-param-info :param-info="paramInfo"/>
     <details-comment :comment="comment"/>
     </scroll>
@@ -30,6 +30,7 @@ import Scroll from 'components/common/scroll/Scroll.vue'
 
 import {getDetails,Goods,Shop,GoodsParam} from 'network/details.js'
 import {itemListenerMixin} from 'common/mixins.js'
+import {debounce} from 'common/utils.js'
 
 
 
@@ -47,7 +48,7 @@ export default {
       comment: {},
     }
   },
-  mixins: [itemListenerMixin],
+  // mixins: [itemListenerMixin],
   created() {
     // 1、获取商品iid
     this.iid = this.$route.params.iid;
@@ -87,6 +88,9 @@ export default {
     })
 },
   methods:{
+    imageLoad(){
+    this.$refs.scroll.refresh();
+  }
   },
 }
 </script>
