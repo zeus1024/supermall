@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
+    <img :src="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -18,6 +18,12 @@ export default {
       default(){
         return {}
       }
+    },
+    detailsRecommend: {
+       type: Object,
+      default(){
+        return {}
+      }
     }
   },
   methods:{
@@ -26,6 +32,13 @@ export default {
   },
     itemClick(){
       this.$router.push('/details/' + this.goodsItem.iid)
+    }
+  },
+  computed: {
+    showImage(){
+     if(this.$route.path.indexOf('/detail') == 0)
+     {return this.detailsRecommend.image}
+     else {return  this.goodsItem.show.img}
     }
   }
 }
