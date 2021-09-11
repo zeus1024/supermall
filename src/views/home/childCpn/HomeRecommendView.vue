@@ -1,8 +1,8 @@
 <template>
-  <div class="recommend">
+  <div class="recommend" @click="godetail">
     <div v-for="item in recommends" class="recommend-item">
       <!-- <a :href="item.link"> -->
-        <a href="/#/details/1m70y5k">
+        <a>
         <img :src="item.image" alt="">
         <div>{{item.title}}</div>
       </a>
@@ -19,6 +19,11 @@ export default {
       default(){
         return [];
       },
+    }
+  },
+  methods: {
+    godetail(){
+      this.$router.push('/details/1m70y5k');
     }
   }
 }
