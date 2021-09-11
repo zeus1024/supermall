@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     showTabBar: function(){
-     if(this.$route.path.indexOf('/detail') ==-1)
+     if(this.$route.path.indexOf('/detail') == -1 && this.$route.path.indexOf('/error') == -1)
       {return true}
       else
       {return false}

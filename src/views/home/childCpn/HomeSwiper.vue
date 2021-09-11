@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div @click="error">
     <swiper>
       <swiper-item v-for="item in banners" :key="banners.acm">
-      <a :href="item.link">
+      <!-- <a :href="item.link"> -->
+        <a>
         <img :src="item.image" alt='kong' @load ="imageLoad">
         </a>
       </swiper-item>
@@ -36,6 +37,9 @@ export default {
       this.$emit('swiperImageLoad');
       this.isLoad = true;
       }
+    },
+    error(){
+      this.$router.push('/error');
     }
   }
 

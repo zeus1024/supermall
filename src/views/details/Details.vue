@@ -8,9 +8,10 @@
       <details-goods-info :detail-info="detailInfo" @ImageLoad="imageLoad" />
       <details-param-info :param-info="paramInfo" ref="paramInfo" />
       <details-comment :comment="comment" ref="comment" />
-      <goods-list :goods="recommend" ref="recommend" />
+      <goods-list :goods="recommend" ref="recommend" ></goods-list>
     </scroll>
-  </div>
+    <details-bottom-bar @addtocart="addToCart"/>
+<back-top @click.native="backTopClick" v-show="isShowBackTop"></back-top>  </div>
 </template>
 
 <script>
@@ -21,13 +22,14 @@ import DetailsShopInfo from "./childsCpn/DetailsShopInfo.vue";
 import DetailsParamInfo from "./childsCpn/DetailsParamInfo.vue";
 import DetailsGoodsInfo from "./childsCpn/DetailsGoodsInfo.vue";
 import DetailsComment from "./childsCpn/DetailsComment.vue";
+import DetailsBottomBar from './childsCpn/DetailsBottomBar.vue';
 
 import GoodsList from "components/content/goodslist/GoodsList.vue"
 
 import Scroll from "components/common/scroll/Scroll.vue";
 
 import { getDetails,getDetailsRecommend, Goods, Shop, GoodsParam } from "network/details.js";
-import { itemListenerMixin } from "common/mixins.js";
+import { itemListenerMixin,BackTopMixin } from "common/mixins.js";
 import { debounce } from "common/utils.js";
 
 export default {
@@ -39,6 +41,7 @@ export default {
     DetailsParamInfo,
     DetailsGoodsInfo,
     DetailsComment,
+    DetailsBottomBar,
 
     GoodsList,
     Scroll,
@@ -61,7 +64,11 @@ export default {
       currentIndex:0,
     };
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin,BackTopMixin],
+  beforeDestroy() {
+ this.$bus.$off('ImageLoad',this.refresh);
+    
+  },
   created() {
     // 1、获取商品iid
     this.iid = this.$route.params.iid;
@@ -100,7 +107,7 @@ export default {
     //获取推荐商品
     getDetailsRecommend().then((res) => {
       this.recommend = res.data.list
-    }) ;
+    });
   },
   mounted() {
     
@@ -127,6 +134,8 @@ export default {
     },
 
     tabTitleChange(position) {
+       this.isShowBackTop = (-position.y) > 1000;
+
       for(let i = 0; i< this.themeOffsetY.length-1; i++) {
         if(i != this.currentIndex){
           if(-position.y >= this.themeOffsetY[i] && -position.y <= this.themeOffsetY[i+1])
@@ -137,7 +146,20 @@ export default {
         }
        
       }
+    },
+
+    addToCart(){
+      // 
+      const obj = {
+        iid: this.iid,
+        desc: this.goods.desc,
+        price: this.goods.lowNowPrice,
+        title: this.goods.title,
+        img: this.topImages[0]
+      };
+      console.log(obj);
     }
+
   },
 };
 </script>
@@ -157,6 +179,6 @@ export default {
 }
 
 .content {
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 49px);
 }
 </style>

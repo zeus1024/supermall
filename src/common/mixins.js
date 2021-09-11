@@ -1,4 +1,5 @@
 import {debounce} from 'common/utils.js'
+import BackTop from 'components/content/backTop/BackTop.vue'
 
 export const itemListenerMixin = {
   data(){
@@ -20,4 +21,22 @@ export const itemListenerMixin = {
 
   // }
 }
+}
+
+export const BackTopMixin = {
+  data () {
+    return {
+      isShowBackTop:false,  
+    }
+  },
+  components: {
+    BackTop,
+  },
+  methods:{
+    backTopClick(){
+      this.$refs.scroll.scrollTo(0,0,1000)
+    },
+
+  }
+
 }

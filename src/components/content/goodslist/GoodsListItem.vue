@@ -19,27 +19,27 @@ export default {
         return {}
       }
     },
-    detailsRecommend: {
-       type: Object,
-      default(){
-        return {}
-      }
-    }
   },
   methods:{
     imageLoad(){
     this.$bus.$emit('ImageLoad')
   },
     itemClick(){
-      this.$router.push('/details/' + this.goodsItem.iid)
+      if(this.goodsItem.iid)
+      {this.$router.push('/details/' + this.goodsItem.iid)}
+      else
+      {this.$router.push('/error')
+      }
     }
   },
   computed: {
     showImage(){
-     if(this.$route.path.indexOf('/detail') == 0)
-     {return this.detailsRecommend.image}
-     else {return  this.goodsItem.show.img}
-    }
+        return this.goodsItem.image || this.goodsItem.show.img;
+    //  if(this.$route.path.indexOf('/detail') == 0)
+    //  {return this.detailsRecommend.image}
+    //  else {return  this.goodsItem.show.img}
+    },
+   
   }
 }
 </script>

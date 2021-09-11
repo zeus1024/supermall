@@ -46,17 +46,16 @@ import Scroll from 'components/common/scroll/Scroll.vue'
 
 import TabControl from 'components/content/tabcontrol/TabControl.vue'
 import GoodsList from 'components/content/goodslist/GoodsList.vue'
-import BackTop from 'components/content/backTop/BackTop.vue'
 
 import {getHomeMultidata,getHomeGoods} from 'network/home'
-import {itemListenerMixin} from 'common/mixins.js'
+import {itemListenerMixin,BackTopMixin} from 'common/mixins.js'
 
 
 
 
 export default {
   name: "home",
-  components:{HomeSwiper,HomeRecommendView,FeatureView,NavBar,Scroll,TabControl,GoodsList, Scroll,BackTop, },
+  components:{HomeSwiper,HomeRecommendView,FeatureView,NavBar,Scroll,TabControl,GoodsList, Scroll, },
   data(){
     return {
       banners:[],
@@ -67,13 +66,13 @@ export default {
         'sell':{page:0,list:[]},
       },
       currentType:'pop',
-      isShowBackTop:false,
+      
       isTabFixed:false,
       tabOffsetTop:0,
       scrollY:0,
     }
   },
-  mixins:[itemListenerMixin],
+  mixins:[itemListenerMixin,BackTopMixin],
   created(){
     this.getHomeMultidata();
     this.getHomeGoods('pop');
@@ -83,11 +82,12 @@ export default {
   },
 
   activated () {
-    this.$refs.scroll.scrollTo(0,this.scrollY,0);
     this.$refs.scroll.refresh();
+    this.$refs.scroll.scrollTo(0,this.scrollY,0);
   },
   deactivated () {
     this.scrollY =this.$refs.scroll.getScrollY();
+    this.$bus.$off('ImageLoad',this.refresh)
   },
   mounted(){
     
@@ -163,9 +163,9 @@ export default {
 
    
     // 返回顶部
-    backTopClick(){
-      this.$refs.scroll.scrollTo(0,0,1000)
-    },
+    // backTopClick(){
+    //   this.$refs.scroll.scrollTo(0,0,1000)
+    // },
 
     
 

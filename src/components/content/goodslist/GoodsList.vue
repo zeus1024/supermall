@@ -4,7 +4,8 @@
     v-for = "(item,index) in goods"
     :key = "index"
     :goods-item = "item"
-    :details-recommend= "item"/>
+    :details-recommend= "item"
+    />
   </div>
 </template>
 

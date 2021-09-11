@@ -39,7 +39,7 @@ export default {
       this.$emit('tab-click',index);
     },
     goBack(){
-      this.$router.back(-1);
+      this.$router.back();
     }
   }
 }
