@@ -11,7 +11,9 @@
       <goods-list :goods="recommend" ref="recommend" ></goods-list>
     </scroll>
     <details-bottom-bar @addtocart="addToCart"/>
-<back-top @click.native="backTopClick" v-show="isShowBackTop"></back-top>  </div>
+  <back-top @click.native="backTopClick" v-show="isShowBackTop"></back-top> 
+  <toast :message="messageToast" :show="showToast"></toast>
+ </div>
 </template>
 
 <script>
@@ -32,6 +34,8 @@ import { getDetails,getDetailsRecommend, Goods, Shop, GoodsParam } from "network
 import { itemListenerMixin,BackTopMixin } from "common/mixins.js";
 import { debounce } from "common/utils.js";
 
+import toast from "components/common/toast/Toast.vue"
+
 export default {
   components: {
     DetailsNarBar,
@@ -45,8 +49,8 @@ export default {
 
     GoodsList,
     Scroll,
-
     
+    toast,
     
   },
   name: "Details",
@@ -62,6 +66,9 @@ export default {
       recommend: [],
       themeOffsetY: [],
       currentIndex:0,
+
+      messageToast:'',
+      showToast: false,
     };
   },
   mixins: [itemListenerMixin,BackTopMixin],
@@ -150,16 +157,17 @@ export default {
 
     addToCart(){
       // 
-      const obj = {
-        iid: this.iid,
-        desc: this.goods.desc,
-        price: this.goods.lowNowPrice,
-        title: this.goods.title,
-        img: this.topImages[0]
-      };
-      console.log(obj);
-    }
-
+      const product = {};
+        product.iid = this.iid;
+        product.desc = this.goods.desc;
+        product.price = this.goods.lowNowPrice;
+        product.title = this.goods.title;
+        product.img = this.topImages[0];
+        this.$store.dispatch('changeCart',product).then(res => {
+         this.$toast.isshow(res,4000)
+        })
+    },
+   
   },
 };
 </script>

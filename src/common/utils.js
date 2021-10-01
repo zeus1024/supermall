@@ -7,7 +7,7 @@
     }
     timer = setTimeout( () => {
       func.apply(this,args)
-      console.log("执行一次");
+      // console.log("执行一次");
     },delay);
   }
 }

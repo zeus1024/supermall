@@ -38,7 +38,7 @@ export default {
        pullUpLoad: this.pullUpLoad,
        probeType: this.probeType,
        disableTouch:false,
-       disableMouse:false,
+       disableMouse:true,
     })
     
     // 2、监听滚动的位置
@@ -67,7 +67,7 @@ export default {
     }, 
     refresh(){
       this.scroll.refresh();
-       console.log("refresh");
+      //  console.log("refresh");
     }, 
     getScrollY(){
       return this.scroll ? this.scroll.y : 0
