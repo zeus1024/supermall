@@ -1,4 +1,4 @@
-# supermall
+# supermall（vue仿美丽街练习项目）
 
 ## Project setup
 ```
