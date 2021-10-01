@@ -27,7 +27,7 @@ export default {
   computed: {
     ...mapGetters(['cartList']),
     totalPrice(){
-      return this.cartList.filter(item => {return item.choose;})
+      return '￥' + this.cartList.filter(item => {return item.choose;})
       .reduce((preValue, item) =>{
         return preValue + item.count * item.price ;
       },0).toFixed(2);
